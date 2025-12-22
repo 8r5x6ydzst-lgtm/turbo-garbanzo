@@ -1,0 +1,149 @@
+/* ====== تنسيق الفقرات ====== */
+p {
+    direction: rtl;
+    text-align: center;
+    font-size: 85px;
+    margin-top: 35px;
+}
+
+/* ====== تنسيق العنوان الرئيسي ====== */
+h1 {
+    text-align: center;
+    font-size: 100px;
+}
+
+/* ====== تنسيق الصورة في المنتصف ====== */
+img.center {
+    display: block;
+    margin: 20px auto;   /* توسيط مع مسافة مناسبة */
+    width: 100%;         /* تاخد عرض الصفحة كله */
+    max-width: 1000px;   /* تمنع تكبيرها عن 1000px */
+    height: auto;        /* تحافظ على نسب الصورة */
+}
+.rtl {
+    direction: rtl;
+    text-align: right;
+}
+/* ====== تنسيق الجدول ====== */
+.my-table {
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 30px;
+}
+
+.my-table th,
+.my-table td {
+    padding: 12px;
+    text-align: center;
+    border: 10px solid #555;
+}
+.my-table th {
+    background-color: #eee;
+    font-size: 30px;
+    font-weight: bold;
+}/* تنسيق خاص بالأسئلة فقط */
+.questions-box {
+    direction: rtl;
+    text-align: right;
+    padding: 20px;
+}
+
+/* تكبير خط الاختيارات */
+.questions-box label {
+    font-size: 65px;
+    display: block;
+    margin-bottom: 65px;
+}
+
+/* تكبير خط textarea */
+.questions-box textarea {
+    font-size: 50px;
+    width: 95%;
+    padding: 20px;
+}
+
+/* تنسيق الزرارين */
+.questions-box button {
+    font-size: 45px;
+    padding: 45px 45px;
+    margin-top: 35px;
+    cursor: pointer;
+    display: block;
+    margin-right: 0;
+}
+
+/* الرسائل */
+.questions-box p {
+    font-size: 50px;
+    font-weight: bold;
+}
+.questions-box {
+    background: #f5f5f5; 
+    border: 5px solid #ccc;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    width: 90%;
+}
+.questions-box {
+    width: 103%;              /* ياخد عرض الصفحة كله */
+    padding: 20px;            /* مسافة داخلية */
+    background: #f5f5f5;      /* لون يبقي ظاهر */
+    border:30px solid #ccc;   /* حدود بسيطة */
+    border-radius: 10px;      /* زوايا ناعمة */
+    box-sizing: border-box;   /* مهم جداً علشان العرض ما يكبرش */
+    margin: 0px 0;           /* مسافة فوق وتحت */
+    direction: rtl;           /* خلي النص يمين */
+    text-align: right;        /* خلي الكلام يمين */
+}
+button {
+    background-color: lawngreen; /* لون الزرار */
+    color: black;          /* لون كتابة الزرار */
+}
+input[type="radio"] {
+    width: 25px;     /* عرض الدائرة */
+    height: 20px;    /* ارتفاع الدائرة */
+    transform: scale(2.5);  /* تكبير الدائرة */
+    margin-left: 10px; /* مسافة بسيطة */
+}
+.my-centered-word {
+    text-align: center;   /* الكلمة في نص الصفحة */
+    font-size: 45px;      /* خط أصغر شوية */
+    font-weight: bold;    /* تخانة بسيطة */
+    color: red;           /* ممكن تغيره لو عايز */
+    margin: 20px;       /* مسافة فوق وتحت */
+}
+hr {
+  height: 5px;              /* سمك الخط */
+  background-color: black; /* لون الخط */
+  border: none;              /* إزالة الحدود الافتراضية */
+  border-radius: 5px;        /* حواف دائرية */
+  margin: 20px 0;            /* مسافة فوق وتحت الخط */
+}
+html {
+    background-color: #1e3a8a; /* الخلفية الزرقاء */
+}
+
+body {
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+}
+
+/* النصوص العادية مع تأثير CapCut واللون الأخضر */
+p, h1, h2, h3, h4, h5, h6, span, li {
+    color: green !important; /* لون أخضر لجميع النصوص */
+    text-shadow: 
+        -1px -1px 0 #ffffff,  
+         1px -1px 0 #ffffff,
+        -1px  1px 0 #ffffff,
+         1px  1px 0 #ffffff; /* إطار أبيض حول النص */
+}
+
+/* الجداول ونصوص الصفوف تبقى كما هي تمامًا */
+table, th, td, tr {
+    background-color: #ffffff !important; /* خلفية الجدول بيضاء */
+    color: #000000 !important; /* نصوص داخل الجدول أسود */
+}
