@@ -2,8 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>علم الفلك
-  Astronomy</title>
+  <title>علم الفلك Astronomy</title>
   
   <style>
     /* === التنسيقات العامة (CSS) === */
@@ -136,20 +135,17 @@
         background-color: #ffffff !important;
         color: #000000 !important;
     }
-    h1{
+    h1 {
       font-size: 50px;
     }
   </style>
 </head>
 
 <body>
-  <form id="my-form" action="https://formspree.io/f/xrezowod" method="POST"
-  >
-
 
   <h1 style="font-size: 100px;"><span style="color: black !important;">علم الفلك</span></h1>
   
-  <p>ده أفضل موقع عشان تتعرف على معلومات عن كواكب المجموعة الشمسيه (مجرة درب التبانة) هتلاقي في الموقع ده حاجات كنت تعرفها أو متعرفهاش عن الكواكب وامتمني انك تستمتع</p
+  <p>ده أفضل موقع عشان تتعرف على معلومات عن كواكب المجموعة الشمسيه (مجرة درب التبانة) هتلاقي في الموقع ده حاجات كنت تعرفها أو متعرفهاش عن الكواكب وامتمني انك تستمتع</p>
   <hr>
 
   <p class="center">أولًا: كوكب عطارد</p>
@@ -432,33 +428,33 @@
   </p>
 
   <div class="questions-box">
-    <form>
+    <form id="astroForm" action="mailto:zieadea9.z@gmail.com" method="post" enctype="text/plain">
       <p><b>إيه أكتر كوكب عجبك؟</b></p>
-      <label><input type="radio" name="group1" value="عطارد"> عطارد</label>
-      <label><input type="radio" name="group1" value="الزهرة"> الزهرة</label>
-      <label><input type="radio" name="group1" value="الأرض"> الأرض</label>
-      <label><input type="radio" name="group1" value="المريخ"> المريخ</label>
-      <label><input type="radio" name="group1" value="المشتري"> المشتري</label>
-      <label><input type="radio" name="group1" value="زحل"> زحل</label>
-      <label><input type="radio" name="group1" value="أورانوس"> أورانوس</label>
-      <label><input type="radio" name="group1" value="نبتون"> نبتون</label>
-      <label><input type="radio" name="group1" value="بلوتو"> بلوتو</label><br>
+      <label><input type="radio" name="أفضل_كوكب" value="عطارد"> عطارد</label>
+      <label><input type="radio" name="أفضل_كوكب" value="الزهرة"> الزهرة</label>
+      <label><input type="radio" name="أفضل_كوكب" value="الأرض"> الأرض</label>
+      <label><input type="radio" name="أفضل_كوكب" value="المريخ"> المريخ</label>
+      <label><input type="radio" name="أفضل_كوكب" value="المشتري"> المشتري</label>
+      <label><input type="radio" name="أفضل_كوكب" value="زحل"> زحل</label>
+      <label><input type="radio" name="أفضل_كوكب" value="أورانوس"> أورانوس</label>
+      <label><input type="radio" name="أفضل_كوكب" value="نبتون"> نبتون</label>
+      <label><input type="radio" name="أفضل_كوكب" value="بلوتو"> بلوتو</label><br>
       
-      <textarea id="group1_text" rows="3" placeholder="اكتب سبب اختيارك هنا..."></textarea><br>
-      <button type="button" onclick="checkGroup1()">إرسال</button>
+      <textarea name="سبب_الاختيار" id="group1_text" rows="3" placeholder="اكتب سبب اختيارك هنا..."></textarea><br>
+      <button type="button" onclick="checkAndSend('result1', 'أفضل_كوكب', 'group1_text')">إرسال</button>
       <p id="result1" style="font-size: 45px; font-weight: bold;"></p>
       
       <hr>
       <p><b>قيم موقعنا</b></p>
-      <label><input type="radio" name="group2" value="ممتاز"> ⭐️⭐️⭐️⭐️⭐️ ممتاز</label>
-      <label><input type="radio" name="group2" value="ممتع"> ⭐️⭐️⭐️⭐️ ممتع</label>
-      <label><input type="radio" name="group2" value="شغال"> ⭐️⭐️⭐️ شغال</label>
-      <label><input type="radio" name="group2" value="يحتاج تعديل"> ⭐️⭐️ يحتاج إلى التعديل</label>
-      <label><input type="radio" name="group2" value="سئ جداً"> ⭐️ سيء جدًا</label><br>
+      <label><input type="radio" name="تقييم_الموقع" value="ممتاز"> ⭐️⭐️⭐️⭐️⭐️ ممتاز</label>
+      <label><input type="radio" name="تقييم_الموقع" value="ممتع"> ⭐️⭐️⭐️⭐️ ممتع</label>
+      <label><input type="radio" name="تقييم_الموقع" value="شغال"> ⭐️⭐️⭐️ شغال</label>
+      <label><input type="radio" name="تقييم_الموقع" value="يحتاج تعديل"> ⭐️⭐️ يحتاج إلى التعديل</label>
+      <label><input type="radio" name="تقييم_الموقع" value="سئ جداً"> ⭐️ سيء جدًا</label><br>
       
       <p><b>اترك ملاحظتك هنا لتحسين موقعنا</b></p>
-      <textarea id="group2_text" rows="3" placeholder="اكتب ملاحظتك هنا..."></textarea><br>
-      <button type="button" onclick="checkGroup2()">إرسال</button>
+      <textarea name="ملاحظات_التحسين" id="group2_text" rows="3" placeholder="اكتب ملاحظتك هنا..."></textarea><br>
+      <button type="button" onclick="checkAndSend('result2', 'تقييم_الموقع', 'group2_text')">إرسال</button>
       <p id="result2" style="font-size: 45px; font-weight: bold;"></p>
     </form>
   </div>
@@ -467,31 +463,23 @@
   <h1 style="text-align: center;"><span style="color: red !important;">Programmed by Ahmed Hassan ❤️</span></h1>
 
   <script>
-    function checkGroup1() {
-        let radio = document.querySelector('input[name="group1"]:checked');
-        let text  = document.getElementById("group1_text").value.trim();
-        let result = document.getElementById("result1");
+    // الدالة المعدلة التي تتحقق من البيانات وتفتح تطبيق البريد الإلكتروني
+    function checkAndSend(resultId, radioName, textId) {
+        let radio = document.querySelector('input[name="' + radioName + '"]:checked');
+        let text  = document.getElementById(textId).value.trim();
+        let result = document.getElementById(resultId);
 
         if (!radio || text === "") {
             result.innerHTML = "من فضلك جاوب علي السؤالين ❌";
             result.style.color = "red";
         } else {
-            result.innerHTML = "شكرًا لاجابتك ✅";
+            result.innerHTML = "شكرًا لك! سيتم فتح تطبيق البريد الآن ✅";
             result.style.color = "green";
-        }
-    }
-
-    function checkGroup2() {
-        let radio = document.querySelector('input[name="group2"]:checked');
-        let text  = document.getElementById("group2_text").value.trim();
-        let result = document.getElementById("result2");
-
-        if (!radio || text === "") {
-            result.innerHTML = "من فضلك جاوب علي السؤالين ❌";
-            result.style.color = "red";
-        } else {
-            result.innerHTML = "شكرًا لرأيك تم إرسال ملاحظاتك ✅";
-            result.style.color = "green";
+            
+            // الانتظار قليلاً ليرى المستخدم الرسالة ثم إرسال الفورم
+            setTimeout(function() {
+                document.getElementById("astroForm").submit();
+            }, 1000);
         }
     }
   </script>
