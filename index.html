@@ -428,7 +428,7 @@
   </p>
 
   <div class="questions-box">
-    <form id="astroForm" action="mailto:zieadea9.z@gmail.com" method="post" enctype="text/plain">
+    <form id="astroForm">
       <p><b>إيه أكتر كوكب عجبك؟</b></p>
       <label><input type="radio" name="أفضل_كوكب" value="عطارد"> عطارد</label>
       <label><input type="radio" name="أفضل_كوكب" value="الزهرة"> الزهرة</label>
@@ -440,7 +440,7 @@
       <label><input type="radio" name="أفضل_كوكب" value="نبتون"> نبتون</label>
       <label><input type="radio" name="أفضل_كوكب" value="بلوتو"> بلوتو</label><br>
       
-      <textarea name="سبب_الاختيار" id="group1_text" rows="3" placeholder="اكتب سبب اختيارك هنا..."></textarea><br>
+      <textarea id="group1_text" rows="3" placeholder="اكتب سبب اختيارك هنا..."></textarea><br>
       <button type="button" onclick="checkAndSend('result1', 'أفضل_كوكب', 'group1_text')">إرسال</button>
       <p id="result1" style="font-size: 45px; font-weight: bold;"></p>
       
@@ -453,7 +453,7 @@
       <label><input type="radio" name="تقييم_الموقع" value="سئ جداً"> ⭐️ سيء جدًا</label><br>
       
       <p><b>اترك ملاحظتك هنا لتحسين موقعنا</b></p>
-      <textarea name="ملاحظات_التحسين" id="group2_text" rows="3" placeholder="اكتب ملاحظتك هنا..."></textarea><br>
+      <textarea id="group2_text" rows="3" placeholder="اكتب ملاحظتك هنا..."></textarea><br>
       <button type="button" onclick="checkAndSend('result2', 'تقييم_الموقع', 'group2_text')">إرسال</button>
       <p id="result2" style="font-size: 45px; font-weight: bold;"></p>
     </form>
@@ -476,12 +476,12 @@
             result.innerHTML = "شكرًا لك! سيتم فتح تطبيق البريد الآن ✅";
             result.style.color = "green";
             
-            // هنا بنجهز الرسالة عشان توصلك بالعربي الواضح زي ما هو كتب
-            let subject = encodeURIComponent("رأي جديد في موقع الكواكب");
-            let body = encodeURIComponent("صاحبك اختار كوكب: " + radio.value + "\n\nوالسبب اللي كتبه هو:\n" + text);
+            // تحضير البيانات للإرسال عبر الرابط
+            let subject = encodeURIComponent("رأي جديد من الموقع");
+            let body = encodeURIComponent("الاختيار: " + radio.value + "\n\nالملاحظة: " + text);
             
             setTimeout(function() {
-                // ده اللي بيفتح تطبيق Gmail عند صاحبك والرسالة مكتوبة جاهزة
+                // فتح تطبيق البريد بالإيميل والبيانات جاهزة بالعربي السليم
                 window.location.href = "mailto:zieadea9.z@gmail.com?subject=" + subject + "&body=" + body;
             }, 1000);
         }
