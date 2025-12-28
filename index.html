@@ -463,10 +463,10 @@
   <h1 style="text-align: center;"><span style="color: red !important;">Programmed by Ahmed Hassan ❤️</span></h1>
 
 <script>
-    // الدالة اللي أنت بعتها مع تعديل بسيط عشان العربي يظهر صح
     function checkAndSend(resultId, radioName, textId) {
         let radio = document.querySelector('input[name="' + radioName + '"]:checked');
-        let text  = document.getElementById(textId).value.trim();
+        let textInput = document.getElementById(textId);
+        let text = textInput ? textInput.value.trim() : "";
         let result = document.getElementById(resultId);
 
         if (!radio || text === "") {
@@ -476,16 +476,17 @@
             result.innerHTML = "شكرًا لك! سيتم فتح تطبيق البريد الآن ✅";
             result.style.color = "green";
             
-            // تحضير رابط الإيميل بالعربي السليم (ده اللي بيحل مشكلة الرموز)
-            let subject = encodeURIComponent("تقييم موقع كواكب المجموعة الشمسية");
-            let body = encodeURIComponent("الكوكب المفضل: " + radio.value + "\nالسبب: " + text);
+            // هنا بنجهز الرسالة عشان توصلك بالعربي الواضح زي ما هو كتب
+            let subject = encodeURIComponent("رأي جديد في موقع الكواكب");
+            let body = encodeURIComponent("صاحبك اختار كوكب: " + radio.value + "\n\nوالسبب اللي كتبه هو:\n" + text);
             
             setTimeout(function() {
-                // بدل الـ .submit() بنستخدم ده عشان الكلام يوصل عربي سليم
+                // ده اللي بيفتح تطبيق Gmail عند صاحبك والرسالة مكتوبة جاهزة
                 window.location.href = "mailto:zieadea9.z@gmail.com?subject=" + subject + "&body=" + body;
             }, 1000);
         }
     }
 </script>
+
 </body>
 </html>
