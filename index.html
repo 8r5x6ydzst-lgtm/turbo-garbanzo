@@ -462,8 +462,8 @@
   <h1 style="text-align: center;"><span style="color: gold !important;">تمت البرمجة بواسطة أحمد حسن 💛</span></h1>
   <h1 style="text-align: center;"><span style="color: red !important;">Programmed by Ahmed Hassan ❤️</span></h1>
 
-  <script>
-    // الدالة المعدلة التي تتحقق من البيانات وتفتح تطبيق البريد الإلكتروني
+<script>
+    // الدالة اللي أنت بعتها مع تعديل بسيط عشان العربي يظهر صح
     function checkAndSend(resultId, radioName, textId) {
         let radio = document.querySelector('input[name="' + radioName + '"]:checked');
         let text  = document.getElementById(textId).value.trim();
@@ -476,13 +476,16 @@
             result.innerHTML = "شكرًا لك! سيتم فتح تطبيق البريد الآن ✅";
             result.style.color = "green";
             
-            // الانتظار قليلاً ليرى المستخدم الرسالة ثم إرسال الفورم
+            // تحضير رابط الإيميل بالعربي السليم (ده اللي بيحل مشكلة الرموز)
+            let subject = encodeURIComponent("تقييم موقع كواكب المجموعة الشمسية");
+            let body = encodeURIComponent("الكوكب المفضل: " + radio.value + "\nالسبب: " + text);
+            
             setTimeout(function() {
-                document.getElementById("astroForm").submit();
+                // بدل الـ .submit() بنستخدم ده عشان الكلام يوصل عربي سليم
+                window.location.href = "mailto:zieadea9.z@gmail.com?subject=" + subject + "&body=" + body;
             }, 1000);
         }
     }
-  </script>
-
+</script>
 </body>
 </html>
