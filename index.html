@@ -1,492 +1,344 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>علم الفلك Astronomy</title>
-  
-  <style>
-    /* === التنسيقات العامة (CSS) === */
-    p {
-        direction: rtl;
-        text-align: center;
-        font-size: 70px;
-        margin-top: 35px;
-    }
+<meta charset="UTF-8">
+<title>لعبة حماة البيئة</title>
 
-    h1 {
-        text-align: center;
-        font-size: 100px;
-    }
+<style>
 
-    img.center {
-        display: block;
-        margin: 20px auto;
-        width: 100%;
-        max-width: 1000px;
-        height: auto;
-    }
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    text-align:center;
+    direction:rtl;
+}
 
-    .rtl {
-        direction: rtl;
-        text-align: right;
-    }
+#gameContainer{
+    background:white;
+    width: 55%;
+    margin: 30px auto;
+    padding: 18px;
+    border-radius: 5px;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
+    padding-top: 40px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
 
-    .my-table {
-        width: 100%;
-        max-width: 1200px;
-        margin: 50px auto;
-        border-collapse: collapse;
-        table-layout: fixed;
-        font-size: 30px;
-    }
+button{
+    width: 80%;
+    padding: 10px;
+    margin: 8px;
+    font-size:27.5px;
+    border:none;
+    border-radius: 28px;
+    cursor:pointer;
+    background:#4CAF50;
+    color:white;
+    transition: all 0.3s ease; /* إضافة سلاسة في تغيير الألوان */
+}
 
-    .my-table th,
-    .my-table td {
-        padding: 12px;
-        text-align: center;
-        border: 10px solid #555;
-    }
+button:hover:not(:disabled){
+    background:#388E3C;
+}
 
-    .my-table th {
-        background-color: #eee;
-        font-size: 30px;
-        font-weight: bold;
-    }
+/* التنسيق الجديد للأزرار المقفولة (اللون الرمادي) */
+button:disabled {
+    background-color: #d3d3d3 !important;
+    color: #888 !important;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
 
-    /* صندوق الأسئلة وتنسيقه */
-    .questions-box {
-        width: 103%;
-        padding: 20px;
-        background: #f5f5f5;
-        border: 30px solid #ccc;
-        border-radius: 10px;
-        box-sizing: border-box;
-        margin: 0px 0;
-        direction: rtl;
-        text-align: right;
-    }
+/* تنسيق خاص للزر الخاطئ الذي اختاره المستخدم لتمييزه */
+.wrong-choice {
+    background-color: #f44336 !important;
+    color: white !important;
+}
 
-    .questions-box label {
-        font-size: 65px;
-        display: block;
-        margin-bottom: 65px;
-        color: black !important;
-    }
+#message{
+    font-size:20px;
+    margin-top:15px;
+    font-weight:bold;
+}
 
-    .questions-box textarea {
-        font-size: 50px;
-        width: 95%;
-        padding: 20px;
-    }
+.hidden{
+    display:none;
+}
+div{
+    font-size: 40px;
+}
+h1{
+    font-size: 60px;
+}
+h3{
+    font-size: 45px;
+}
+img{
+  width: 470px;
+  border: 10px solid black;
+  margin-top: 15px;
+  border-radius: 50px;
+  object-fit: cover;
+}
+.but{
+	color: black;
+}
+#hud{
+    background-color: #FFFFFF;
+    width: 15%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
 
-    .questions-box button {
-        font-size: 45px;
-        padding: 45px 45px;
-        margin-top: 35px;
-        cursor: pointer;
-        display: block;
-        background-color: lawngreen;
-        color: black;
-    }
-
-    /* الأسئلة داخل الصندوق تكون بالأسود */
-    .questions-box p {
-        font-size: 75px;
-        font-weight: bold;
-        color: black !important; 
-        text-shadow: none !important;
-    }
-
-    input[type="radio"] {
-        width: 25px;
-        height: 20px;
-        transform: scale(2.5);
-        margin-left: 10px;
-    }
-
-    hr {
-      height: 5px;
-      background-color: black;
-      border: none;
-      border-radius: 5px;
-      margin: 20px 0;
-    }
-
-    html {
-        background-color: #1e3a8a;
-    }
-
-    body {
-        background-color: transparent;
-        font-family: Arial, sans-serif;
-    }
-
-    /* تنسيق الخط العام بالأخضر والظل الأبيض */
-    p {
-        color: yellowgreen !important;
-        text-shadow: 
-            -1px -1px 0 #ffffff,  
-             1px -1px 0 #ffffff,
-            -1px  1px 0 #ffffff,
-             1px  1px 0 #ffffff;
-    }
-
-    table, th, td, tr {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-    }
-    h1 {
-      font-size: 50px;
-    }
-  </style>
+</style>
 </head>
 
 <body>
+<h1>🌿 لعبة حماة البيئة 🌿</h1>
+<h3 id="levelTitle">المستوى 1</h3>
+<div id="hud">
+    💎 <span id="gems">0</span>
+</div>
 
-  <h1 style="font-size: 100px;"><span style="color: black !important;">علم الفلك</span></h1>
-  
-  <p>ده أفضل موقع عشان تتعرف على معلومات عن كواكب المجموعة الشمسيه (مجرة درب التبانة) هتلاقي في الموقع ده حاجات كنت تعرفها أو متعرفهاش عن الكواكب وامتمني انك تستمتع</p>
-  <hr>
+<div id="gameContainer">
+<button class="exit-btn" onclick="exitGame()">خروج</button>
 
-  <p class="center">أولًا: كوكب عطارد</p>
-  <img src="IMG_0128.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب عطارد</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورانه حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>عطارد</td>
-      <td>حوالي 58 مليون كيلومتر</td>
-      <td>حوالي 430 درجة مئوية</td>
-      <td>حوالي 88 يوم</td>
-      <td>حوالي 59 يومًا أرضيًا</td>
-      <td>صفر</td>
-      <td>حوالي 3.7 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">الغلاف الجوي المفقود:</span> <br>عطارد لا يمتلك غلافًا جويًا تقريبًا ليحبس الحرارة، لذا تتأرجح درجات الحرارة فيه بشكل مرعب؛ فبينما تحترق جهته المواجهة للشمس، تتجمد الجهة الأخرى لتصل إلى -180 درجة مئوية.
-    <br><span style="color: red !important;">القلب الحديدي:</span> <br> يمتلك عطارد قلبًا حديديًا ضخمًا يشغل حوالي 85% من حجم الكوكب، مما يجعله ثاني أكثر الكواكب كثافة بعد الأرض.
-  </p>
- 
-  <hr>
 
-  <p class="center-text">ثانيًا: كوكب الزهرة</p>
-  <img src="IMG_0127.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب الزهرة</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورته حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>الزهرة</td>
-      <td>حوالي 108 مليون كيلومتر</td>
-      <td>حوالي 470° مئوية</td>
-      <td>حوالي 225 يوم</td>
-      <td>حوالي 243 يومًا أرضيًا</td>
-      <td>صفر</td>
-      <td>حوالي 8.87 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">دوران عكسي:</span><br> الزهرة يدور حول نفسه باتجاه معاكس لمعظم الكواكب، مما يعني أن الشمس تشرق فيه من الغرب وتغرب في الشرق! <br>
-    <span style="color: red !important;">ضغط ساحق:</span><br> الضغط الجوي على سطح الزهرة يعادل 90 ضعف الضغط على الأرض، وهو ما يشبه الضغط الذي ستشعر به إذا كنت على عمق 1000 متر تحت المحيط.
-  </p>
-  <hr>
+    <img id="questionImage" src="" width="300">
 
-  <p class="center">ثالثًا: كوكب الأرض</p>
-  <img src="IMG_0136.png" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب الأرض</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورته حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>الأرض</td>
-      <td>حوالي 149.6 مليون كيلومتر</td>
-      <td>حوالي 15 درجة مئوية</td>
-      <td>حوالي 365 يوم</td>
-      <td>حوالي 24 ساعة</td>
-      <td>قمر واحد</td>
-      <td>حوالي 9.807 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">الدرع المغنطيسي:</span><br>للأرض مجال مغناطيسي قوي يحمينا من الإشعاعات الشمسية الضارة والرياح الشمسية التي قد تدمر الغلاف الجوي 
-    <br><span style="color: red !important;">التدوير:</span> <br>هي الكوكب الوحيد المعروف الذي يمتلك صفائح تكتونية تتحرك وتعيد تدوير الكربون، مما يساعد في تنظيم درجة حرارة الكوكب على المدى الطويل.
-  </p>
-  <hr>
+    <p id="questionText"></p>
 
-  <p class="center">رابعًا: كوكب المريخ</p>
-  <img src="IMG_0129.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب المريخ</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورته حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>المريخ</td>
-      <td>6,779 كم</td>
-      <td>حوالي 63 درجة مئوية</td>
-      <td>حوالي 687 يومًا أرضيًا</td>
-      <td>حوالي 24 ساعة و37 دقيقة</td>
-      <td>قمران</td>
-      <td>حوالي 3.73 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">براكين عملاقة:</span><br> يضم المريخ جبل "أوليمبوس"، وهو بركان درعي عملاق يبلغ ارتفاعه 25 كيلومترًا، مما يجعله أطول من جبل إيفرست بـ 3 مرات<br> 
-    <span style="color: red !important;">مياه مدفونة:</span><br> اكتشف العلماء أدلة قوية على وجود مياه متجمدة تحت سطح المريخ وفي أقطابه، مما يزيد من احتمالية وجود حياة مجهرية قديمة.
-  </p>
-  <hr>
+    <div id="answers"></div>
 
-  <p class="center">خامسًا: كوكب المشتري</p>
-  <img src="IMG_0130.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب المشتري</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورته حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>المشتري</td>
-      <td>حوالي 778 مليون كيلومتر</td>
-      <td>حوالي -110 درجة مئوية</td>
-      <td>حوالي 12 سنة أرضية</td>
-      <td>أقل من 10 ساعات</td>
-      <td>حوالي 95 قمرًا</td>
-      <td>حوالي 24.79 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">ملك الاقمار:</span><br> يمتلك المشتري مجالًا مغناطيسيًا هو الأقوى بين الكواكب، ولديه 95 قمرًا معروفًا، من بينها "أوروبا" الذي يعتقد العلماء بوجود محيط سائل تحت قشرته الجليدية<br>
-    <span style="color: red !important;">فشل نجمي:</span> <br>المشتري يتكون من الهيدروجين والهيليوم مثل النجوم، ولو كان حجمه أكبر بـ 80 مرة، لربما أصبح نجمًا بدلاً من كوكب
-  </p>
-  <hr>
+    <div style="font-size: 35px;" id="message"></div>
+    
+    <div style="margin-top: 35px;" id="videoContainer" class="hidden">
+        <video style="border: 4px solid black; object-fit: cover;" width="500px" height="375"
+        controls>
+            <source id="videoSource" src="" type="">
+        </video>
+        <div style="margin-top: 20px;">
+        <button onclick="retry()">حاول مرة أخرى</button>
+        </div>
+    </div>
 
-  <p class="center">سادسًا: كوكب زحل</p>
-  <img src="IMG_0131.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب زحل</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورانه حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>زحل</td>
-      <td>حوالي 1.43 مليار كيلومتر</td>
-      <td>حوالي -178 درجة مئوية</td>
-      <td>حوالي 29.5 سنة أرضية</td>
-      <td>حوالي 10 ساعات و33 دقيقة</td>
-      <td>حوالي 274 قمرًا</td>
-      <td>حوالي 10.44 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب :</p>
-  <p class="center">
-    <span style="color: gold !important;">حلقات مذهلة:</span> <br>تتكون حلقاته من بلايين القطع الصغيرة من الجليد والغبار والصخور، وتتمتع بلمعان عالٍ لأن الجليد يعكس ضوء الشمس بكفاءة
-    <br><span style="color: red !important;">عواصف سداسية:</span><br>
-    توجد عاصفة غريبة ودائمة على شكل مسدس سداسي الأضلاع في قطبه الشمالي، ولا يزال العلماء يدرسون سر تشكل هذا الشكل الهندسي. 💠
-  </p>
-  <hr>
-
-  <p class="center">سابعًا: كوكب أورانوس</p>
-  <img src="IMG_0132.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب أورانوس</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورانه حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>أورانوس</td>
-      <td>حوالي 2.9 مليار كيلومتر</td>
-      <td>حوالي -224.2</td>
-      <td>حوالي 84 عامًا أرضيًا</td>
-      <td>حوالي 17 ساعة و 14 دقيقة و 52 ثانية</td>
-      <td>حوالي 28 قمراً</td>
-      <td>حوالي 8.69 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب : </p>
-  <p class="center">
-    <span style="color: gold !important;">كوكب مائل:</span><br> يميل محور دوران أورانوس بزاوية 98 درجة، مما يجعله يبدو وكأنه يتدحرج على مداراه.
-    <br> <span style="color: red !important;">امطار الماس:</span><br> يعتقد العلماء أن الضغط الهائل في أعماق أورانوس ونبتون قد يحول الكربون إلى ألماس يتساقط كالأمطار.
-  </p>
-<hr>
-
-  <p class="center">ثامنًا: كوكب نبتون</p>
-  <img src="IMG_0133.jpeg" class="center">
-  <p class="center">جدول توضيحي لمواصفات كوكب نبتون</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدة دورانه حول الشمس</th>
-      <th>مدة دورانه حول نفسه</th>
-      <th>عدد الأقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>نبتون</td>
-      <td>حوالي 4.5 مليار كيلومتر</td>
-      <td>حوالي -218 درجة مؤية</td>
-      <td>حوالي 165 عامًا أرضيًا</td>
-      <td>حوالي 16 ساعة</td>
-      <td>حوالي 16 قمرًا</td>
-      <td>11.15 م\ث²</td>
-    </tr>
-  </table>
-  <p class="center">معلومات بخصوص الكوكب : </p>
-  <p class="center">
-    <span style="color: gold !important;">الرياح الاسرع:</span><br> نبتون هو كوكب العواصف، حيث تتجاوز سرعة الرياح فيه 2100 كم/ساعة. 
-    <br><span style="color: red !important;">بعد سحيق:</span> <br>هو الكوكب الوحيد الذي تم اكتشافه بالحسابات الرياضية قبل أن يتم رصده بالتلسكوب. 
-  </p>
-  <hr>
-
-  <p class="center">تاسعًا: بلوتو</p>
-  <img src="IMG_0134.jpeg" class="center">
-  <p class="center"> جدول توضيحي لمواصفات بلوتو</p>
-  <table class="my-table">
-    <tr>
-      <th>اسم الكوكب</th>
-      <th>المسافة بين الكوكب والشمس</th>
-      <th>درجة حرارة الكوكب</th>
-      <th>مدت دورانه حول الشمس</th>
-      <th>مدت دورانه حول نفسه</th>
-      <th>عدد الاقمار التي تدور حوله</th>
-      <th>جاذبية الكوكب</th>
-    </tr>
-    <tr>
-      <td>بلوتو</td>
-      <td>حوالي 5.9 مليار كيلومتر</td>
-      <td>حوالي -232 مؤية</td>
-      <td>حوالي 248 سنة أرضية</td>
-      <td>حوالي 6 أيام و9 ساعات و36 دقيقة</td>
-      <td>حوالي 5 اقمار</td>
-      <td>0.62 م\ث²</td>
-    </tr>
-  </table>
-  <p class="rtl">معلومات بخصوص الكوكب : </p>
-  <p class="center">
-    <span style="color: gold !important;">مدار بيضاوي:</span><br> مدار بلوتو بيضاوي لدرجة أنه يقترب من الشمس أكثر من نبتون أحياناً!
-    <br><span style="color: red !important;">قلب من جليد:</span> <br>يتميز بلوتو بوجود منطقة واسعة على شكل "قلب".
-  </p>
-  <hr>
-
-  <p class="rtl">وصلت مركبتنا العلمية إلى محطتها الأخيرة نرجو أن تكونوا قد استمتعتم بالتعرف على جيراننا في الفضاء من عطارد الصغير إلى بلوتو البعيد. لا تنسوا مشاركتنا رأيكم في استطلاع الرأي بالأسفل، وإلى اللقاء في رحلة استكشافية جديدة!</p>
-  <hr>
-
-  <p style="color: black !important; font-size: 100px !important; text-shadow: none !important;">
-    أسئلة سريعة <br> (مجرد استطلاع رأي)
-  </p>
-
-  <div class="questions-box">
-    <form id="astroForm">
-      <p><b>إيه أكتر كوكب عجبك؟</b></p>
-      <label><input type="radio" name="أفضل_كوكب" value="عطارد"> عطارد</label>
-      <label><input type="radio" name="أفضل_كوكب" value="الزهرة"> الزهرة</label>
-      <label><input type="radio" name="أفضل_كوكب" value="الأرض"> الأرض</label>
-      <label><input type="radio" name="أفضل_كوكب" value="المريخ"> المريخ</label>
-      <label><input type="radio" name="أفضل_كوكب" value="المشتري"> المشتري</label>
-      <label><input type="radio" name="أفضل_كوكب" value="زحل"> زحل</label>
-      <label><input type="radio" name="أفضل_كوكب" value="أورانوس"> أورانوس</label>
-      <label><input type="radio" name="أفضل_كوكب" value="نبتون"> نبتون</label>
-      <label><input type="radio" name="أفضل_كوكب" value="بلوتو"> بلوتو</label><br>
-      
-      <textarea id="group1_text" rows="3" placeholder="اكتب سبب اختيارك هنا..."></textarea><br>
-      <button type="button" onclick="checkAndSend('result1', 'أفضل_كوكب', 'group1_text')">إرسال</button>
-      <p id="result1" style="font-size: 45px; font-weight: bold;"></p>
-      
-      <hr>
-      <p><b>قيم موقعنا</b></p>
-      <label><input type="radio" name="تقييم_الموقع" value="ممتاز"> ⭐️⭐️⭐️⭐️⭐️ ممتاز</label>
-      <label><input type="radio" name="تقييم_الموقع" value="ممتع"> ⭐️⭐️⭐️⭐️ ممتع</label>
-      <label><input type="radio" name="تقييم_الموقع" value="شغال"> ⭐️⭐️⭐️ شغال</label>
-      <label><input type="radio" name="تقييم_الموقع" value="يحتاج تعديل"> ⭐️⭐️ يحتاج إلى التعديل</label>
-      <label><input type="radio" name="تقييم_الموقع" value="سئ جداً"> ⭐️ سيء جدًا</label><br>
-      
-      <p><b>اترك ملاحظتك هنا لتحسين موقعنا</b></p>
-      <textarea id="group2_text" rows="3" placeholder="اكتب ملاحظتك هنا..."></textarea><br>
-      <button type="button" onclick="checkAndSend('result2', 'تقييم_الموقع', 'group2_text')">إرسال</button>
-      <p id="result2" style="font-size: 45px; font-weight: bold;"></p>
-    </form>
-  </div>
-
-  <h1 style="text-align: center;"><span style="color: gold !important;">تمت البرمجة بواسطة أحمد حسن 💛</span></h1>
-  <h1 style="text-align: center;"><span style="color: red !important;">Programmed by Ahmed Hassan ❤️</span></h1>
+</div>
 
 <script>
-    function checkAndSend(resultId, radioName, textId) {
-        let radio = document.querySelector('input[name="' + radioName + '"]:checked');
-        let textInput = document.getElementById(textId);
-        let text = textInput ? textInput.value.trim() : "";
-        let result = document.getElementById(resultId);
+let currentGems = 0;
 
-        if (!radio || text === "") {
-            result.innerHTML = "من فضلك جاوب علي السؤالين ❌";
-            result.style.color = "red";
+function addGems() {
+    currentGems += 10;
+    document.getElementById("gems").innerText = currentGems;
+}
+
+const levels = [
+{
+question:"شاهدت شخصًا يرمي القمامة في النهر، ماذا تفعل؟",
+image:"IMG_2038.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"أساعده في رمي المزيد", correct:false },
+{ text:"أتجاهل الأمر", correct:false },
+{ text:"أنصحه بعدم رمي القمامة وأخبر الكبار", correct:true },
+{ text:"أرمي زجاجة بلاستيك أيضًا", correct:false }
+]
+},
+{
+question:"أين يجب أن نرمي القمامة؟",
+image:"IMG_2039.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+    { text:"في سلة المهملات", correct:true },
+{ text:"في البحر", correct:false },
+{ text:"في الشارع", correct:false },
+{ text:"خلف الأشجار", correct:false }
+]
+},
+{
+question:"لماذا لا يجب قطع الأشجار بدون سبب؟",
+image:"IMG_2040.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+    { text:"لأنها قبيحة المنظر", correct:false },
+{ text:"لأنها لا فائدة منها", correct:false },
+{ text:"لأنها مزعجة", correct:false },
+{ text:"لأنها تعطينا هواءً نظيفًا", correct:true },
+]
+},
+{
+question:"عند غسل يديك، ماذا تفعل؟",
+image:"IMG_2042.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"أترك الماء مفتوحًا", correct:false },
+{ text:"أغلق الماء بعد الانتهاء", correct:true },
+{ text:"ألعب بالماء", correct:false },
+{ text:"أفتح الماء أكثر", correct:false }
+]
+},
+{
+question:"عند مغادرة الغرفة، ماذا تفعل؟",
+image:"IMG_2043.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"أترك الأنوار مضاءة", correct:false },
+{ text:"أطفئ الأنوار", correct:true },
+{ text:"أشغل جميع الأنوار", correct:false },
+{ text:"لا أهتم", correct:false }
+]
+},
+{
+question:"كيف نقلل من تلوث الهواء؟",
+image:"IMG_2254.png",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"نحرق النفايات", correct:false },
+{ text:"نشغل السيارات دائمًا", correct:false },
+{ text:"نستخدم الدراجة أو المشي أحيانًا", correct:true },
+{ text:"نزيد المصانع", correct:false }
+]
+},
+{
+question:"ماذا نفعل بالعلب البلاستيكية؟",
+image:"IMG_2057.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+    { text:"نعيد تدويرها", correct:true },
+{ text:"نرميها في البحر", correct:false },
+{ text:"نحرقها", correct:false },
+{ text:"نكسرها ونرميها", correct:false }
+]
+},
+{
+question:"كيف نحمي الحيوانات؟",
+image:"IMG_2046.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"نصطادها دائمًا", correct:false },
+
+{ text:"نلوث الغابة", correct:false },
+{ text:"نرمي القمامة في أماكنها", correct:false },
+{ text:"نحافظ على بيئتها", correct:true }
+]
+},
+{
+question:"كيف نقلل من التلوث الضوضائي؟",
+image:"IMG_2048.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"نرفع الصوت جدًا", correct:false },
+{ text:"نستخدم أصوات معتدلة", correct:true },
+{ text:"نصرخ في الشارع", correct:false },
+{ text:"نشغل مكبرات الصوت دائمًا", correct:false }
+]
+},
+{
+question:"ماذا يعني أن أكون صديقًا للبيئة؟",
+image:"IMG_2044.jpeg",
+video:"1771267148.mp4",
+videoType:"",
+answers:[
+{ text:"أحافظ على نظافتها", correct:true },
+{ text:"ألوثها", correct:false },
+{ text:"أقطع الأشجار", correct:false },
+{ text:"أهدر الماء", correct:false }
+]
+}
+];
+
+let currentLevel = 0;
+
+function loadLevel(){
+    document.getElementById("videoContainer").classList.add("hidden");
+    document.getElementById("message").innerHTML="";
+    document.getElementById("levelTitle").innerText="المستوى " + (currentLevel+1);
+
+    const level = levels[currentLevel];
+
+    document.getElementById("questionText").innerText = level.question;
+    document.getElementById("questionImage").src = level.image;
+
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML="";
+
+    level.answers.forEach(answer=>{
+        const btn = document.createElement("button");
+        btn.innerText = answer.text;
+        // قمنا بتمرير الزر نفسه (this) للدالة للتحكم به
+        btn.onclick = (e)=>checkAnswer(answer.correct, e.target);
+        answersDiv.appendChild(btn);
+    });
+}
+
+function checkAnswer(correct, clickedButton){
+    if(correct){
+        addGems();
+        document.getElementById("message").innerHTML="🎉 أحسنت! تم اجتياز المستوى";
+        currentLevel++;
+        
+        // قفل جميع الأزرار عند الإجابة الصحيحة أيضاً لمنع التكرار
+        disableAllButtons();
+
+        if(currentLevel < levels.length){
+            setTimeout(loadLevel, 2000);
         } else {
-            result.innerHTML = "شكرًا لك! سيتم فتح تطبيق البريد الآن ✅";
-            result.style.color = "green";
-            
-            // تحضير البيانات للإرسال عبر الرابط
-            let subject = encodeURIComponent("رأي جديد من الموقع");
-            let body = encodeURIComponent("الاختيار: " + radio.value + "\n\nالملاحظة: " + text);
-            
-            setTimeout(function() {
-                // فتح تطبيق البريد بالإيميل والبيانات جاهزة بالعربي السليم
-                window.location.href = "mailto:zieadea9.z@gmail.com?subject=" + subject + "&body=" + body;
-            }, 1000);
+            localStorage.setItem("userGems", currentGems);
+            document.getElementById("message").innerHTML="🏆 مبروك! أنهيت جميع المستويات..";
+            setTimeout(function(){
+                window.location.href = 'cbv.html'; 
+            }, 2000); 
         }
-    }
-</script>
+    } else {
+        // إذا كانت الإجابة خاطئة
+        clickedButton.classList.add("wrong-choice"); // تلوين الزر المختار بالأحمر
+        disableOtherButtons(clickedButton); // قفل الباقي بالرمادي
 
+        const level = levels[currentLevel];
+        document.getElementById("videoSource").src = level.video;
+        document.getElementById("videoSource").type = level.videoType;
+        document.querySelector("video").load();
+        document.getElementById("videoContainer").classList.remove("hidden");
+    }
+}
+
+// وظيفة لقفل باقي الأزرار ما عدا الذي ضغط عليه المستخدم
+function disableOtherButtons(exceptionBtn) {
+    const buttons = document.querySelectorAll("#answers button");
+    buttons.forEach(btn => {
+        if(btn !== exceptionBtn) {
+            btn.disabled = true;
+            btn.classList.add("disabled");
+        }
+    });
+}
+
+// وظيفة لقفل جميع الأزرار (تستخدم عند الإجابة الصحيحة)
+function disableAllButtons() {
+    const buttons = document.querySelectorAll("#answers button");
+    buttons.forEach(btn => {
+        btn.disabled = true;
+    });
+}
+
+function retry(){
+    document.getElementById("videoContainer").classList.add("hidden");
+    document.querySelector("video").pause();
+    // إعادة تحميل المستوى لإتاحة المحاولة مرة أخرى
+    loadLevel();
+}
+
+loadLevel();
+</script>
 </body>
 </html>

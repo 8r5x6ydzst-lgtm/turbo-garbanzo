@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر حماة البيئة</title>
+    <style>
+        /* الإعدادات الأساسية - مطابقة لصفحة السؤال */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            /* تدرج لوني من الأعلى للأسفل كما في الصورة */
+            background: linear-gradient(to bottom, #76b852, #8DC26F); 
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* العناوين الكبيرة */
+        h1 { font-size: 32px; color: #1a1a1a; margin-bottom: 5px; }
+        h3 { font-size: 24px; color: #1a1a1a; margin-top: 0; }
+
+        /* حاوية الجواهر (HUD) */
+        .gem-display {
+            background: white;
+            padding: 5px 20px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        /* الحاوية البيضاء الرئيسية - مضبوطة الحجم */
+        .shop-container {
+            background: white;
+            width: 90%;
+            max-width: 400px; /* نفس عرض صفحة السؤال */
+            margin: 0 auto;
+            padding: 25px 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+
+        /* زر الخروج العلوي */
+        .exit-btn {
+            background-color: #76b852;
+            color: black;
+            border: none;
+            width: 90%;
+            padding: 10px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        /* برواز الكأس الأسود - مطابق لبرواز صورة الرجل */
+        .trophy-card {
+            border: 5px solid black; /* البرواز الأسود السميك */
+            border-radius: 30px;
+            overflow: hidden;
+            width: 90%;
+            max-width: 320px;
+            margin: 0 auto 20px auto;
+            background-color: #fffdf0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .trophy-img {
+            font-size: 100px;
+            padding: 20px 0;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* نص السعر والوصف */
+        .price-tag {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* الأزرار البيضاوية الكبيرة */
+        button {
+            width: 90%;
+            padding: 12px;
+            margin: 8px auto;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px; /* شكل بيضاوي */
+            cursor: pointer;
+            background: #76b852;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        button:hover:not(:disabled) {
+            background: #5a9e3d;
+            transform: scale(1.02);
+        }
+
+        button:disabled {
+            background-color: #bdc3c7 !important;
+            color: #7f8c8d !important;
+            cursor: not-allowed;
+        }
+
+        /* تأثير الكأس العملاق */
+        #celebrationOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .giant-trophy {
+            font-size: 200px;
+            filter: drop-shadow(0 0 40px #FFD700);
+            animation: glow-and-pulse 1.5s infinite alternate;
+        }
+
+        @keyframes glow-and-pulse {
+            from { transform: scale(1); filter: drop-shadow(0 0 20px #FFD700); }
+            to { transform: scale(1.1); filter: drop-shadow(0 0 70px #fff700); }
+        }
+
+        .congrats-text {
+            color: #FFD700;
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #statusMsg { font-size: 18px; margin-top: 10px; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+<div id="celebrationOverlay">
+    <div class="giant-trophy">🏆</div>
+    <div class="congrats-text">🎊 لقد حصلت على الكأس الذهبي! 🎊</div>
+    <button style="background: #FFD700; color: black; margin-top: 30px;" onclick="closeOverlay()">مبروك!</button>
+</div>
+
+<h1>🌿 لعبة حماة البيئة 🌿</h1>
+<h3 id="levelTitle">متجر الجوائز</h3>
+
+<div class="gem-display">
+    رصيدك: <span id="balance">0</span> 💎
+</div>
+
+<div class="shop-container">
+    <button class="exit-btn" onclick="exitGame()">خروج</button>
+
+
+    <div class="trophy-card">
+        <div class="trophy-img">🏆</div>
+    </div>
+
+    <p class="price-tag">كأس حامي البيئة الذهبي<br>السعر: 100 جوهرة</p>
+    
+    <button id="buyBtn" onclick="buyTrophy()">شراء الآن</button>
+    <div id="statusMsg"></div>
+</div>
+
+<script>
+    // جلب الجواهر من الذاكرة
+    let gems = parseInt(localStorage.getItem("userGems")) || 0;
+    const balanceDisplay = document.getElementById("balance");
+    const statusMsg = document.getElementById("statusMsg");
+    const buyBtn = document.getElementById("buyBtn");
+    const overlay = document.getElementById("celebrationOverlay");
+
+    balanceDisplay.innerText = gems;
+
+    function buyTrophy() {
+        if (gems >= 100) {
+            gems -= 100;
+            balanceDisplay.innerText = gems;
+            localStorage.setItem("userGems", gems);
+            
+            statusMsg.style.color = "green";
+            statusMsg.innerText = "🎉 تم الشراء بنجاح!";
+            buyBtn.disabled = true;
+            buyBtn.innerText = "تم الشراء";
+            
+            showCelebration();
+        } else {
+            statusMsg.style.color = "red";
+            statusMsg.innerText = "للأسف، ليس لديك جواهر كافية!";
+        }
+    }
+
+    function showCelebration() {
+        overlay.style.display = "flex";
+    }
+
+    function closeOverlay() {
+        overlay.style.display = "none";
+    }
+</script>
+
+</body>
+</html>
